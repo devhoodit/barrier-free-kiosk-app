@@ -66,9 +66,11 @@ cd barrier-free-kiosk
 # Propose
 Our team use 키오스크(무인정보단말기) 이용실태 조사 to analyze problems  
 Our targets are
-- Elder (Digital Abbreviation)  
-- Blind
-- Lower extremity disorder
+- Elders (Digital Abbreviation)  
+- Blinds
+- Lower extremity disorders
+- Kiosk Customers
+- Developers
 
 We propose several concepts
 - [Consistency](#consistency)
