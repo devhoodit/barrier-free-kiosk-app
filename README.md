@@ -133,5 +133,8 @@ Tablet PC is scalable with C-type port or networking
 If need hardware device, connect C-type port to use (networking too)  
 Also, tablet basically provide some hardware like camera  
 
+# Prototype Limitation
+Not fully-implemented  
+
 # How it works
 ## configuration
