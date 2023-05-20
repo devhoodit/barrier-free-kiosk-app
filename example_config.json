@@ -1,0 +1,30 @@
+{
+    "category": [
+        {
+            "title": "category name",
+            "items": [0],
+            "details": [[]]
+        }
+    ],
+    "details":
+    [
+        [
+            {
+                "name": "detail name like, nothing",
+                "price": 0
+            },
+            {
+                "name": "add ice",
+                "price": 0
+            }
+        ]
+    ],
+    "items": [
+        {
+            "name": "item name",
+            "price": 1000,
+            "images": "image path (relative path)",
+            "description": "description of item, this will be used in recommendation system"
+        }
+    ]
+}
