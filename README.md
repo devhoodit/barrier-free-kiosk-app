@@ -62,7 +62,11 @@ Set config.json and image directory
 git clone https://github.com/devhoodit/barrier-free-kiosk-app.git
 cd barrier-free-kiosk
 ```
-Current developing on 13.5 Freeform API 33 (android-x64 emulator)
+Current developing on 
+- Flutter 3.8.0-4.0.pre
+- Dart 3.0.0 (build 3.0.0-204.0.dev)
+- DevTools DevTools 2.21.1
+- 13.5 Freeform API 33 (android-x64 emulator)
 
 # Propose
 Our team use 키오스크(무인정보단말기) 이용실태 조사 to analyze problems  
