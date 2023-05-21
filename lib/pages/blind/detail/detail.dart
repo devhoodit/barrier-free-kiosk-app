@@ -15,6 +15,8 @@ class BlindDetail extends StatelessWidget {
     final details = args.detailCategories;
     final dp = context.read<DetailProvider>();
     dp.initializeRadio(args);
+    final tts = context.read<TtsProvider>();
+    tts.speak("상세메뉴 페이지입니다.");
     return Material(
       child: BDetail(),
     );
@@ -53,17 +55,23 @@ class _BDetailState extends State<BDetail> {
         });
       },
       onLongPress: () => ttsHandler.speak("이전선택지"),
+      boxDecoration: const BoxDecoration(color: Colors.black),
+      textStyle:
+          Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
     );
 
     final container2 = createButton(
       "다음선택지",
       onTap: () {
-        if (col >= details[row].details.length ~/ 2) return;
+        if (col >= (details[row].details.length - 1) ~/ 2) return;
         setState(() {
           col += 1;
         });
       },
       onLongPress: () => ttsHandler.speak("다음선택지"),
+      boxDecoration: const BoxDecoration(color: Colors.white),
+      textStyle:
+          Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
     );
 
     final curDetailRow = details[row];
@@ -78,6 +86,9 @@ class _BDetailState extends State<BDetail> {
         ttsHandler.speak("$leftDetailName 선택됨");
       },
       onLongPress: () => ttsHandler.speak(leftTTS),
+      boxDecoration: const BoxDecoration(color: Colors.white),
+      textStyle:
+          Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
     );
 
     void Function()? rightOnTap;
@@ -100,6 +111,9 @@ class _BDetailState extends State<BDetail> {
       rightTTS,
       onTap: rightOnTap,
       onLongPress: () => ttsHandler.speak(rightTTS),
+      boxDecoration: const BoxDecoration(color: Colors.black),
+      textStyle:
+          Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
     );
 
     final Container container5, container6;
@@ -109,6 +123,11 @@ class _BDetailState extends State<BDetail> {
         "뒤로가기",
         onTap: () => Navigator.pop(context),
         onLongPress: () => ttsHandler.speak("뒤로가기"),
+        boxDecoration: const BoxDecoration(color: Colors.black),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.white),
       );
     } else {
       container5 = createButton(
@@ -118,6 +137,11 @@ class _BDetailState extends State<BDetail> {
           col = 0;
         }),
         onLongPress: () => ttsHandler.speak("이전"),
+        boxDecoration: const BoxDecoration(color: Colors.black),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.white),
       );
     }
 
@@ -133,6 +157,11 @@ class _BDetailState extends State<BDetail> {
               context, '/blindorder', (route) => false);
         },
         onLongPress: () => ttsHandler.speak("담기"),
+        boxDecoration: const BoxDecoration(color: Colors.white),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.black),
       );
     } else {
       container6 = createButton(
@@ -142,6 +171,11 @@ class _BDetailState extends State<BDetail> {
           col = 0;
         }),
         onLongPress: () => ttsHandler.speak("다음"),
+        boxDecoration: const BoxDecoration(color: Colors.white),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.black),
       );
     }
 

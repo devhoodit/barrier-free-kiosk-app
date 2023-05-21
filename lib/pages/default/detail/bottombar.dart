@@ -65,9 +65,11 @@ class AddToCart extends StatelessWidget {
           cartProvider.add(menuInfo);
           Navigator.pushNamedAndRemoveUntil(
               context, '/order', (route) => false);
-          recommendDialogBuilder(context, args.item, args.detailCategories);
+          if (args.item.metadata != null) {
+            recommendDialogBuilder(context, args.item, args.detailCategories);
+          }
         },
-        child: Center(
+        child: const Center(
           child: Text(
             "담기",
             style: TextStyle(

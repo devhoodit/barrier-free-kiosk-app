@@ -46,8 +46,14 @@ class DetailOrder extends StatelessWidget {
       itemCount: details.length,
       separatorBuilder: (BuildContext context, int index) {
         return Container(
-          height: 2,
-          color: Theme.of(context).colorScheme.primary,
+          height: 50,
+          margin: const EdgeInsets.only(bottom: 30),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                  width: 4, color: Theme.of(context).colorScheme.primary),
+            ),
+          ),
         );
       },
       itemBuilder: (BuildContext context, int index) {

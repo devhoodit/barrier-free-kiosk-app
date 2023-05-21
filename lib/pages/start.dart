@@ -31,7 +31,7 @@ class InitialPage extends StatelessWidget {
             TextButton(
               onPressed: () {
                 context.read<ConfigProvider>().initialize(menuCountInOne: 2);
-                Navigator.pushNamed(context, '/blindorder');
+                Navigator.pushNamed(context, '/blindhelp');
               },
               child: const Text(
                 "시각장애인용",

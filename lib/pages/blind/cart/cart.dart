@@ -10,6 +10,8 @@ class BlindCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tts = context.read<TtsProvider>();
+    tts.speak("장바구니 페이지입니다. 메뉴를 두번 터치하면 메뉴가 삭제됩니다");
     return Material(
       child: OrderList(),
     );
@@ -37,6 +39,11 @@ class _OrderListState extends State<OrderList> {
         "첫페이지",
         onTap: null,
         onLongPress: () => ttsHandler.speak("첫페이지입니다"),
+        boxDecoration: const BoxDecoration(color: Colors.white),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.black),
       );
     } else {
       container1 = createButton(
@@ -45,6 +52,11 @@ class _OrderListState extends State<OrderList> {
           index -= 1;
         }),
         onLongPress: () => ttsHandler.speak("이전페이지"),
+        boxDecoration: const BoxDecoration(color: Colors.white),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.black),
       );
     }
 
@@ -53,6 +65,11 @@ class _OrderListState extends State<OrderList> {
         "마지막페이지",
         onTap: null,
         onLongPress: () => ttsHandler.speak("마지막페이지입니다"),
+        boxDecoration: const BoxDecoration(color: Colors.black),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.white),
       );
     } else {
       container2 = createButton(
@@ -61,14 +78,26 @@ class _OrderListState extends State<OrderList> {
           index += 1;
         }),
         onLongPress: () => ttsHandler.speak("다음페이지"),
+        boxDecoration: const BoxDecoration(color: Colors.black),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.white),
       );
     }
 
     final Container container3, container4;
 
     if (index * 2 >= cp.orderList.length) {
-      container3 =
-          createButton("메뉴없음", onLongPress: () => ttsHandler.speak("메뉴없음"));
+      container3 = createButton(
+        "메뉴없음",
+        onLongPress: () => ttsHandler.speak("메뉴없음"),
+        boxDecoration: const BoxDecoration(color: Colors.black),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.white),
+      );
     } else {
       final menuName = cp.orderList[index * 2].item.name;
       final menuPrice = cp.orderList[index * 2].getPrice();
@@ -80,12 +109,24 @@ class _OrderListState extends State<OrderList> {
           cp.remove(index * 2);
           setState(() {});
         },
+        boxDecoration: const BoxDecoration(color: Colors.black),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.white),
       );
     }
 
     if (index * 2 + 1 >= cp.orderList.length) {
-      container4 =
-          createButton("메뉴없음", onLongPress: () => ttsHandler.speak("메뉴없음"));
+      container4 = createButton(
+        "메뉴없음",
+        onLongPress: () => ttsHandler.speak("메뉴없음"),
+        boxDecoration: const BoxDecoration(color: Colors.white),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.black),
+      );
     } else {
       final menuName = cp.orderList[index * 2 + 1].item.name;
       final menuPrice = cp.orderList[index * 2 + 1].getPrice();
@@ -97,6 +138,11 @@ class _OrderListState extends State<OrderList> {
           cp.remove(index * 2 + 1);
           setState(() {});
         },
+        boxDecoration: const BoxDecoration(color: Colors.white),
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Colors.black),
       );
     }
 
@@ -105,11 +151,17 @@ class _OrderListState extends State<OrderList> {
       '뒤로가기',
       onTap: () => Navigator.pop(context),
       onLongPress: () => ttsHandler.speak("뒤로가기"),
+      boxDecoration: const BoxDecoration(color: Colors.white),
+      textStyle:
+          Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.black),
     );
     container6 = createButton(
       '결제하기',
       onTap: () => Navigator.pushNamed(context, '/blindpay'),
       onLongPress: () => ttsHandler.speak("결제하기"),
+      boxDecoration: const BoxDecoration(color: Colors.black),
+      textStyle:
+          Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
     );
 
     return BlindUI(

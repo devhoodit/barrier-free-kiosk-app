@@ -1,5 +1,6 @@
 import 'package:barrier_free_kiosk/pages/blind/cart/cart.dart';
 import 'package:barrier_free_kiosk/pages/blind/detail/detail.dart';
+import 'package:barrier_free_kiosk/pages/blind/help/help.dart';
 import 'package:barrier_free_kiosk/pages/blind/order/order.dart';
 import 'package:barrier_free_kiosk/pages/blind/pay/pay.dart';
 import 'package:barrier_free_kiosk/pages/default/cart/cart.dart';
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
         '/order': (context) => const Order(),
         '/cart': (context) => const Cart(),
         '/pay': (context) => const Pay(),
+        '/blindhelp': (context) => const HelpPage(),
         '/blinddetail': (context) => const BlindDetail(),
         '/blindorder': (context) => const BlindOrder(),
         '/blindcart': (context) => const BlindCart(),
@@ -134,6 +136,7 @@ Map<String, Widget> routes = {
   '/order': const Order(),
   '/cart': const Cart(),
   '/pay': const Pay(),
+  '/blindhelp': const HelpPage(),
   '/blinddetail': const BlindDetail(),
   '/blindorder': const BlindOrder(),
   '/blindcart': const BlindCart(),

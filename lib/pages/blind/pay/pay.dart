@@ -9,19 +9,62 @@ class BlindPay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tts = context.read<TtsProvider>();
+    tts.speak("결제 페이지입니다.");
     return Material(
       child: Column(
         children: [
-          Expanded(
+          const Expanded(
+            flex: 2,
             child: Cost(),
           ),
-          Container(
-            child: TextButton(
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/', (route) => false);
-              },
-              child: Text("결제하기"),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    onLongPress: () => tts.speak("뒤로가기"),
+                    child: Container(
+                      constraints: BoxConstraints.expand(),
+                      color: Colors.black,
+                      child: Center(
+                        child: Text(
+                          "뒤로가기",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/', (route) => false);
+                    },
+                    onLongPress: () => tts.speak("결제하기"),
+                    child: Container(
+                      constraints: BoxConstraints.expand(),
+                      color: Colors.black,
+                      child: Center(
+                        child: Text(
+                          "결제하기",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           )
         ],
@@ -53,7 +96,10 @@ class Cost extends StatelessWidget {
         child: Center(
           child: Text(
             "$allCost 원",
-            style: const TextStyle(fontSize: 50),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: Colors.black),
           ),
         ),
       ),

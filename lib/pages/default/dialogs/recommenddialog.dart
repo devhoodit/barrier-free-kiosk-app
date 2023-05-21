@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:barrier_free_kiosk/lib/config.dart';
@@ -36,18 +35,18 @@ Future<void> recommendDialogBuilder(
           child: Container(
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
-                borderRadius: BorderRadius.all(Radius.circular(30))),
+                borderRadius: const BorderRadius.all(Radius.circular(30))),
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.9,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Expanded(
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
+                        padding: const EdgeInsets.fromLTRB(50, 20, 50, 20),
                         decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.primary,
                             borderRadius:
@@ -60,7 +59,7 @@ Future<void> recommendDialogBuilder(
                               .copyWith(color: Colors.white),
                         ),
                       ),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
@@ -102,10 +101,10 @@ Future<void> recommendDialogBuilder(
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 50),
-                  padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                  margin: const EdgeInsets.only(bottom: 50),
+                  padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
                       color: Theme.of(context).colorScheme.warning),
                   height: 100,
                   child: TextButton(
