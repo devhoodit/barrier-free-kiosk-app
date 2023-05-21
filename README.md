@@ -62,6 +62,7 @@ Set config.json and image directory
 git clone https://github.com/devhoodit/barrier-free-kiosk-app.git
 cd barrier-free-kiosk
 ```
+Current developing on 13.5 Freeform API 33 (android-x64 emulator)
 
 # Propose
 Our team use 키오스크(무인정보단말기) 이용실태 조사 to analyze problems  
@@ -111,6 +112,14 @@ Then how we restrict last state? we restrict "pay" part.
 Pay only works in "pluged-in" state, pay is last part of kiosk ordering phase  
 So after ordering, tablet kiosk might be in right place  
 
+<details>
+<summary>Open to see situation</summary>
+<img src="./images/1.png" height=300><img src="./images/2.png" height=300>
+<img src="./images/3.png" height=300><img src="./images/4.png" height=300>
+<img src="./images/5.png" height=300><img src="./images/6.png" height=300>
+<img src="./images/7.png" height=300><img src="./images/8.png" height=300>
+</details>
+
 ## Cost
 Cost is also important thing to supply barrier fress kiosk  
 Common barrier free kiosk cost is too expensive, so the barrier to entry is high for some managers  
@@ -138,3 +147,6 @@ Not fully-implemented
 
 # How it works
 ## configuration
+
+# Special Thanks
+@4ch1o3 - Drawing sketches that describes specific situation for better explanation
