@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:barrier_free_kiosk/lib/config.dart';
 import 'package:barrier_free_kiosk/lib/menu.dart';
-import 'package:barrier_free_kiosk/pages/default/menudialog.dart';
+import 'package:barrier_free_kiosk/pages/default/dialogs/menudialog.dart';
 import 'package:barrier_free_kiosk/pages/default/order/bottombar.dart';
 import 'package:barrier_free_kiosk/pages/default/topbar.dart';
 import 'package:barrier_free_kiosk/provider/config_provider.dart';
@@ -141,52 +141,69 @@ class MenuComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          '/detail',
-          arguments: MenuInfo(
-            item: item,
-            detailCategories: detailCategories,
-          ),
-        );
-      },
-      onLongPress: () {
-        menuDialogBuilder(context, item, detailCategories);
-      },
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: FileImage(File(item.gluedPath)),
-                fit: BoxFit.cover,
-              ),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/detail',
+            arguments: MenuInfo(
+              item: item,
+              detailCategories: detailCategories,
+            ),
+          );
+        },
+        onLongPress: () {
+          menuDialogBuilder(context, item, detailCategories);
+        },
+        child: MenuLayout(
+          item: item,
+          detailCategories: detailCategories,
+        ));
+  }
+}
+
+class MenuLayout extends StatelessWidget {
+  final Item item;
+  final List<DetailCategory> detailCategories;
+  const MenuLayout({
+    Key? key,
+    required this.item,
+    required this.detailCategories,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: FileImage(File(item.gluedPath)),
+              fit: BoxFit.cover,
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 30,
-                    sigmaY: 30,
-                  ),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      item.name,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 30,
+                  sigmaY: 30,
+                ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    item.name,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -16,12 +16,24 @@ class Config {
 
     parseDetailCategory(map["detail_categories"]);
     parseItem(map["items"]);
+    parseMetadata(map["items"]);
     parseCategory(map["category"]);
+  }
+
+  void parseMetadata(List<dynamic> items) {
+    for (int i = 0; i < items.length; i++) {
+      if (items[i]["rank"] != null) {
+        List<Item> ranks = [];
+        for (int index in items[i]["rank"]) {
+          ranks.add(this.items[index]);
+        }
+        this.items[i].metadata = Metadata(ranks: ranks);
+      }
+    }
   }
 
   void parseDetailCategory(List<dynamic> detailCategories) {
     for (final detailCategoryMap in detailCategories) {
-      print(detailCategoryMap);
       DetailCategory detailCategory = DetailCategory(detailCategoryMap["name"]);
       for (final detail in detailCategoryMap["details"]) {
         detailCategory.details
@@ -95,10 +107,16 @@ class Item {
   String imagePath;
   String gluedPath;
   String description;
+  Metadata? metadata;
   Item(
       {required this.name,
       required this.price,
       required this.imagePath,
       required this.gluedPath,
       required this.description});
+}
+
+class Metadata {
+  List<Item> ranks;
+  Metadata({required this.ranks});
 }

@@ -1,5 +1,6 @@
 import 'package:barrier_free_kiosk/lib/menu.dart';
 import 'package:barrier_free_kiosk/main.dart';
+import 'package:barrier_free_kiosk/pages/default/dialogs/recommenddialog.dart';
 import 'package:barrier_free_kiosk/provider/cart_provider.dart';
 import 'package:barrier_free_kiosk/provider/detail_provider.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,7 @@ class AddToCart extends StatelessWidget {
           cartProvider.add(menuInfo);
           Navigator.pushNamedAndRemoveUntil(
               context, '/order', (route) => false);
+          recommendDialogBuilder(context, args.item, args.detailCategories);
         },
         child: Center(
           child: Text(
