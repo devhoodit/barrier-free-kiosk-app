@@ -42,16 +42,7 @@ class Cost extends StatelessWidget {
     double allCost = 0;
 
     for (final cart in cartProvider.orderList) {
-      // calculate all costs in cart
-      final categoryId = cart.categoryId;
-      final menuId = cart.menuId;
-      final details = cart.detailIndex;
-      double defaultCost = config.categories[categoryId].items[menuId].price;
-      for (var i = 0; i < details.length; i++) {
-        final detail = config.categories[categoryId].details[menuId][i];
-        defaultCost += detail.details[cart.detailIndex[i]].price;
-      }
-      allCost += defaultCost;
+      allCost += cart.getPrice();
     }
 
     return GestureDetector(

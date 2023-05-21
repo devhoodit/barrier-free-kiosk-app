@@ -70,11 +70,8 @@ class _OrderListState extends State<OrderList> {
       container3 =
           createButton("메뉴없음", onLongPress: () => ttsHandler.speak("메뉴없음"));
     } else {
-      final categoryId = cp.orderList[index * 2].categoryId;
-      final menuId = cp.orderList[index * 2].menuId;
-      final details = cp.orderList[index * 2].detailIndex;
-      final menuName = config.getName(categoryId, menuId);
-      final menuPrice = config.getPrice(categoryId, menuId, details);
+      final menuName = cp.orderList[index * 2].item.name;
+      final menuPrice = cp.orderList[index * 2].getPrice();
 
       container3 = createButton(
         "$menuName $menuPrice원",
@@ -90,11 +87,8 @@ class _OrderListState extends State<OrderList> {
       container4 =
           createButton("메뉴없음", onLongPress: () => ttsHandler.speak("메뉴없음"));
     } else {
-      final categoryId = cp.orderList[index * 2 + 1].categoryId;
-      final menuId = cp.orderList[index * 2 + 1].menuId;
-      final details = cp.orderList[index * 2 + 1].detailIndex;
-      final menuName = config.getName(categoryId, menuId);
-      final menuPrice = config.getPrice(categoryId, menuId, details);
+      final menuName = cp.orderList[index * 2 + 1].item.name;
+      final menuPrice = cp.orderList[index * 2 + 1].getPrice();
 
       container4 = createButton(
         "$menuName $menuPrice원",

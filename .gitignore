@@ -1,3 +1,6 @@
+# test codes
+test.*
+
 # Miscellaneous
 *.class
 *.log

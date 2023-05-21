@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:barrier_free_kiosk/lib/config.dart';
 import 'package:barrier_free_kiosk/lib/menu.dart';
+import 'package:barrier_free_kiosk/pages/default/menudialog.dart';
+import 'package:barrier_free_kiosk/pages/default/order/bottombar.dart';
+import 'package:barrier_free_kiosk/pages/default/topbar.dart';
 import 'package:barrier_free_kiosk/provider/config_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class Menu extends StatefulWidget {
@@ -15,118 +18,108 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  static const height = 150.0;
+  int categoryIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ConfigProvider>(
-      builder: (context, value, child) {
-        final config = value.config;
-        final categoryIndex = value.categoryIndex;
-        final menuIndex = value.menuIndex;
-        List<Widget> menuContainers = [];
-        int fillCount = 4;
-        if (value.maxMenuIndex == menuIndex) {
-          fillCount = config.categories[categoryIndex].items.length -
-              value.maxMenuIndex * 4;
-        }
-        for (int i = 0; i < fillCount; i++) {
-          // filled menu
-          final menuId = menuIndex * 4 + i;
-          menuContainers.add(MenuContainer(
-            menuName: config.categories[categoryIndex].items[menuId].name,
-            imagepath: config.categories[categoryIndex].items[menuId].gluedPath,
-            categoryId: categoryIndex,
-            menuId: menuId,
-            detailCategories: config.categories[categoryIndex].details[menuId],
-          ));
-        }
-        for (int i = fillCount; i < 4; i++) {
-          menuContainers.add(Container());
-        }
-
-        Widget prevButton, nextButton;
-
-        void Function()? prevButtonOnPressed, nextButtonOnPressed;
-        if (value.menuIndex <= 0) {
-          prevButtonOnPressed = null;
-        } else {
-          prevButtonOnPressed = () => value.prevMenu();
-        }
-        prevButton = Container(
-          child: IconButton(
-            onPressed: prevButtonOnPressed,
-            icon: const Icon(
-              Icons.arrow_left_rounded,
-              size: 50,
+    final config = context.read<ConfigProvider>().config;
+    List<Widget> tabs = [];
+    List<Widget> tabViews = [];
+    for (int i = 0; i < config.categories.length; i++) {
+      tabs.add(Container(
+        child: Text(
+          config.categories[i].name,
+          style: TextStyle(
+            fontSize: 30,
+          ),
+        ),
+      ));
+      tabViews.add(MenuList(categoryIndex: i));
+    }
+    return Material(
+      child: Column(
+        children: [
+          const TopProcessBar(curProcess: 0, processes: ["메뉴선택"]),
+          Expanded(
+            child: DefaultTabController(
+              length: config.categories.length,
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: TabBar(
+                      unselectedLabelColor: Colors.white,
+                      labelColor: Colors.white,
+                      indicatorColor: Colors.white,
+                      isScrollable: true,
+                      labelPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      tabs: tabs,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.secondary),
+                      child: TabBarView(
+                        children: tabViews,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        );
+          BottomBar()
+        ],
+      ),
+    );
+  }
+}
 
-        if (value.menuIndex >= value.maxMenuIndex) {
-          nextButtonOnPressed = null;
+class MenuList extends StatelessWidget {
+  final int categoryIndex;
+
+  const MenuList({Key? key, required this.categoryIndex}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final config = context.read<ConfigProvider>().config;
+    return ListView.builder(
+      itemCount: (config.categories[categoryIndex].items.length + 1) ~/ 2,
+      itemBuilder: (BuildContext context, int index) {
+        final Item? leftItem, rightItem;
+        final List<DetailCategory>? leftDetails, rightDetails;
+        leftItem = config.categories[categoryIndex].items[index * 2];
+        leftDetails =
+            config.categories[categoryIndex].detailCategories[index * 2];
+        if (config.categories[categoryIndex].items.length - 1 >=
+            index * 2 + 1) {
+          rightItem = config.categories[categoryIndex].items[index * 2 + 1];
+          rightDetails =
+              config.categories[categoryIndex].detailCategories[index * 2 + 1];
         } else {
-          nextButtonOnPressed = () => value.nextMenu();
+          rightItem = null;
+          rightDetails = null;
         }
-        nextButton = Container(
-          child: IconButton(
-            onPressed: nextButtonOnPressed,
-            icon: const Icon(
-              Icons.arrow_right_outlined,
-              size: 50,
-            ),
-          ),
-        );
-
-        return Expanded(
-          child: Column(
+        final Widget leftMenuComponent, rightMenuComponent;
+        leftMenuComponent = Expanded(
+            child: MenuComponent(
+          item: leftItem,
+          detailCategories: leftDetails,
+        ));
+        rightMenuComponent = rightItem == null
+            ? Expanded(child: Container())
+            : Expanded(
+                child: MenuComponent(
+                    item: rightItem, detailCategories: rightDetails!));
+        return SizedBox(
+          height: MediaQuery.of(context).size.width / 2,
+          child: Row(
             children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(child: menuContainers[0]),
-                    Container(
-                      width: 2,
-                      color: Colors.black,
-                    ),
-                    Expanded(child: menuContainers[1]),
-                  ],
-                ),
-              ),
-              Container(
-                height: 2,
-                color: Colors.black,
-              ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(child: menuContainers[2]),
-                    Container(
-                      width: 2,
-                      color: Colors.black,
-                    ),
-                    Expanded(child: menuContainers[3]),
-                  ],
-                ),
-              ),
-              Container(
-                color: Colors.black,
-                height: 2,
-              ),
-              SizedBox(
-                height: height,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(child: prevButton),
-                    Container(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                    Expanded(child: nextButton),
-                  ],
-                ),
-              )
+              leftMenuComponent,
+              rightMenuComponent,
             ],
           ),
         );
@@ -135,63 +128,65 @@ class _MenuState extends State<Menu> {
   }
 }
 
-class MenuContainer extends StatelessWidget {
-  static const fontsize = 50.0;
-  final int categoryId;
-  final int menuId;
-  final String menuName;
-  final String imagepath;
+class MenuComponent extends StatelessWidget {
+  final Item item;
   final List<DetailCategory> detailCategories;
-  const MenuContainer({
+
+  const MenuComponent({
     Key? key,
-    required this.menuName,
-    required this.imagepath,
-    required this.categoryId,
-    required this.menuId,
+    required this.item,
     required this.detailCategories,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final imageFile = File(imagepath);
     return GestureDetector(
-      onTap: () => {
+      onTap: () {
         Navigator.pushNamed(
           context,
           '/detail',
           arguments: MenuInfo(
-            categoryId: categoryId,
-            menuId: menuId,
+            item: item,
             detailCategories: detailCategories,
           ),
-        )
-      }, // on tap
-      onLongPress: () => print("long press"), // long press
-      child: Container(
-        decoration: BoxDecoration(),
-        child: Stack(
-          children: [
-            Image(image: FileImage(imageFile)),
-            Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Container(
-                decoration: BoxDecoration(),
-                child: Text(
-                  menuName,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: fontsize),
-                ),
+        );
+      },
+      onLongPress: () {
+        menuDialogBuilder(context, item, detailCategories);
+      },
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: FileImage(File(item.gluedPath)),
+                fit: BoxFit.cover,
               ),
             ),
-          ],
-        ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 30,
+                    sigmaY: 30,
+                  ),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      item.name,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
-  }
-
-  static Future<File> getImageFile(String imagepath) async {
-    print(await getExternalStorageDirectories());
-    File file = File('');
-    return file;
   }
 }

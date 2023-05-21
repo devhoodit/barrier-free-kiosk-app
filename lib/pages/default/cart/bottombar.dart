@@ -1,3 +1,4 @@
+import 'package:barrier_free_kiosk/main.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatelessWidget {
@@ -5,32 +6,46 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      decoration: const BoxDecoration(color: Colors.amber),
+    return SizedBox(
+      height: 130,
       child: Row(
         children: [
           Expanded(
-            child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_left_outlined,
-                size: 50,
+            child: Container(
+              decoration:
+                  BoxDecoration(color: Theme.of(context).colorScheme.primary),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Center(
+                  child: Text(
+                    "뒤로가기",
+                    style: Theme.of(context)
+                        .textTheme
+                        .menuLarge
+                        .copyWith(color: Colors.white),
+                  ),
+                ),
               ),
             ),
           ),
           Expanded(
-            child: TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/pay');
-              },
-              child: const Text(
-                "결제하기",
-                style: TextStyle(
-                  fontSize: 50,
-                  color: Colors.black,
+            child: Container(
+              decoration:
+                  BoxDecoration(color: Theme.of(context).colorScheme.complete),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/pay');
+                },
+                child: Center(
+                  child: Text(
+                    "결제하기",
+                    style: Theme.of(context)
+                        .textTheme
+                        .menuLarge
+                        .copyWith(color: Colors.white),
+                  ),
                 ),
               ),
             ),

@@ -6,18 +6,21 @@
             "details": [[]]
         }
     ],
-    "details":
+    "detail_categories":
     [
-        [
-            {
-                "name": "detail name like, nothing",
-                "price": 0
-            },
-            {
-                "name": "add ice",
-                "price": 0
-            }
-        ]
+        {
+            "name": "detail category name",
+            "details": [
+                {
+                    "name": "detail name like, nothing",
+                    "price": 0
+                },
+                {
+                    "name": "add ice",
+                    "price": 0
+                }
+            ]
+        }
     ],
     "items": [
         {

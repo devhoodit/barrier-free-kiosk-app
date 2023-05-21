@@ -9,73 +9,78 @@ class Config {
     parseConfig(map);
   }
 
+  void parseConfig(Map<String, dynamic> map) {
+    categories = [];
+    detailCategories = [];
+    items = [];
+
+    parseDetailCategory(map["detail_categories"]);
+    parseItem(map["items"]);
+    parseCategory(map["category"]);
+  }
+
+  void parseDetailCategory(List<dynamic> detailCategories) {
+    for (final detailCategoryMap in detailCategories) {
+      print(detailCategoryMap);
+      DetailCategory detailCategory = DetailCategory(detailCategoryMap["name"]);
+      for (final detail in detailCategoryMap["details"]) {
+        detailCategory.details
+            .add(Detail(detail["name"], detail["price"].toDouble()));
+      }
+      this.detailCategories.add(detailCategory);
+    }
+  }
+
+  void parseItem(List<dynamic> items) {
+    for (final item in items) {
+      Item itm = Item(
+        name: item["name"],
+        price: item["price"].toDouble(),
+        imagePath: item["image"],
+        gluedPath: item["image"],
+        description: item["description"],
+      );
+      this.items.add(itm);
+    }
+  }
+
+  void parseCategory(List<dynamic> categories) {
+    for (final category in categories) {
+      final categoryName = category["title"];
+      List<Item> itms = [];
+      for (final itemIndex in category["items"]) {
+        itms.add(items[itemIndex]);
+      }
+      List<List<DetailCategory>> detailCategories = [];
+      for (final detailIndexes in category["details"]) {
+        List<DetailCategory> details = [];
+        for (final detailIndex in detailIndexes) {
+          details.add(this.detailCategories[detailIndex]);
+        }
+        detailCategories.add(details);
+      }
+      this.categories.add(Category(categoryName, itms, detailCategories));
+    }
+  }
+
   void gluePath(String basepath) {
     for (var item in items) {
       item.gluedPath = p.join(basepath, item.imagePath);
     }
   }
-
-  void parseConfig(Map<String, dynamic> map) {
-    categories = [];
-    detailCategories = [];
-    items = [];
-    for (Map<String, dynamic> item in map["items"]) {
-      items.add(Item(
-          name: item["name"],
-          price: item["price"].toDouble(),
-          imagePath: item["image"],
-          gluedPath: item["image"],
-          description: item["description"]));
-    }
-    for (List<dynamic> detail in map["details"]) {
-      detailCategories.add(DetailCategory(detail));
-    }
-    for (Map<String, dynamic> category in map["category"]) {
-      categories.add(Category(category, items, detailCategories));
-    }
-  }
-
-  String getName(int categoryId, int menuId) {
-    return categories[categoryId].items[menuId].name;
-  }
-
-  double getPrice(int categoryId, int menuId, List<int> details) {
-    double defaultCost = categories[categoryId].items[menuId].price;
-    for (var i = 0; i < details.length; i++) {
-      final detail = categories[categoryId].details[menuId][i];
-      defaultCost += detail.details[details[i]].price;
-    }
-    return defaultCost;
-  }
 }
 
 class Category {
-  String title = "";
-  List<Item> items = [];
-  List<List<DetailCategory>> details = [];
-  Category(Map<String, dynamic> info, List<Item> items,
-      List<DetailCategory> detailCategories) {
-    title = info["title"];
-    for (int index in info["items"]) {
-      this.items.add(items[index]);
-    }
-    for (List<dynamic> detailContainer in info["details"]) {
-      details.add([]);
-      for (int index in detailContainer) {
-        details[details.length - 1].add(detailCategories[index]);
-      }
-    }
-  }
+  String name;
+  List<Item> items;
+  List<List<DetailCategory>> detailCategories;
+  Category(this.name, this.items, this.detailCategories);
 }
 
 class DetailCategory {
+  String name;
   List<Detail> details = [];
-  DetailCategory(List<dynamic> detailCategories) {
-    for (Map<String, dynamic> detailCategoryMap in detailCategories) {
-      details.add(Detail(
-          detailCategoryMap["name"], detailCategoryMap["price"].toDouble()));
-    }
-  }
+  DetailCategory(this.name);
 }
 
 class Detail {

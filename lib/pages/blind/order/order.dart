@@ -46,26 +46,21 @@ class BlindOrder extends StatelessWidget {
           onDoubleTap: () => cp.nextCate(),
         );
 
-        final leftMenuName =
-            config.categories[cp.categoryIndex].items[cp.menuIndex * 2].name;
+        final leftMenu =
+            config.categories[cp.categoryIndex].items[cp.menuIndex * 2];
+        final leftDetail = config
+            .categories[cp.categoryIndex].detailCategories[cp.menuIndex * 2];
 
         final Container container3;
         {
-          final categoryId = cp.categoryIndex;
-          final menuId = cp.menuIndex * 2;
-          final detailCategories =
-              config.categories[categoryId].details[menuId];
           container3 = createButton(
-            leftMenuName,
+            leftMenu.name,
             onTap: () => Navigator.pushNamed(
               context,
               '/blinddetail',
-              arguments: MenuInfo(
-                  categoryId: categoryId,
-                  menuId: menuId,
-                  detailCategories: detailCategories),
+              arguments: MenuInfo(item: leftMenu, detailCategories: leftDetail),
             ),
-            onLongPress: () => ttsHandler.speak(leftMenuName),
+            onLongPress: () => ttsHandler.speak(leftMenu.name),
           );
         }
 
@@ -78,18 +73,16 @@ class BlindOrder extends StatelessWidget {
         } else {
           rightMenuName = config
               .categories[cp.categoryIndex].items[cp.menuIndex * 2 + 1].name;
-          final categoryId = cp.categoryIndex;
-          final menuId = cp.menuIndex * 2 + 1;
-          final detailCategories =
-              config.categories[categoryId].details[menuId];
+          final rightMenu =
+              config.categories[cp.categoryIndex].items[cp.menuIndex * 2 + 1];
+          final rightDetails = config.categories[cp.categoryIndex]
+              .detailCategories[cp.menuIndex * 2 + 1];
           rightMenuOnTap = () {
             Navigator.pushNamed(
               context,
               '/blinddetail',
-              arguments: MenuInfo(
-                  categoryId: categoryId,
-                  menuId: menuId,
-                  detailCategories: detailCategories),
+              arguments:
+                  MenuInfo(item: rightMenu, detailCategories: rightDetails),
             );
           };
         }

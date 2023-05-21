@@ -14,7 +14,7 @@ class BlindDetail extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as MenuInfo;
     final details = args.detailCategories;
     final dp = context.read<DetailProvider>();
-    dp.initializeRadio(details);
+    dp.initializeRadio(args);
     return Material(
       child: BDetail(),
     );
@@ -39,7 +39,7 @@ class _BDetailState extends State<BDetail> {
     final details = args.detailCategories;
     if (details.isEmpty) {
       final detailIndex = context.read<DetailProvider>().radio;
-      final menuInfo = CartInfo(args.categoryId, args.menuId, detailIndex);
+      final menuInfo = CartInfo(args.item, args.detailCategories, detailIndex);
       context.read<CartProvider>().add(menuInfo);
       Navigator.pushNamedAndRemoveUntil(
           context, '/blindorder', (route) => false);
@@ -126,7 +126,8 @@ class _BDetailState extends State<BDetail> {
         "담기",
         onTap: () {
           final detailIndex = context.read<DetailProvider>().radio;
-          final menuInfo = CartInfo(args.categoryId, args.menuId, detailIndex);
+          final menuInfo =
+              CartInfo(args.item, args.detailCategories, detailIndex);
           context.read<CartProvider>().add(menuInfo);
           Navigator.pushNamedAndRemoveUntil(
               context, '/blindorder', (route) => false);
