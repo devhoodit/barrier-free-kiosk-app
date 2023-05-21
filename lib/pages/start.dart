@@ -9,107 +9,114 @@ class InitialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<CartProvider>().initialize();
-    final isConfigCompleted = context.read<ConfigProvider>().isConfigComplete;
     navigate() => Navigator.pushNamed(context, '/settings');
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      body: Builder(
-        builder: (context) => GestureDetector(
-          onTap: () {
-            // there is button in child, but for better experience, any part touch will work like button
-            isConfigCompleted
-                ? Navigator.pushNamed(context, '/order')
-                : ScaffoldMessenger.of(context)
-                    .showSnackBar(createConfigSnackBar(navigate));
-          },
-          child: Container(
-            constraints: const BoxConstraints.expand(),
-            color: const Color.fromARGB(0, 0, 0, 0),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Center(
-                    child: TextButton(
-                      onPressed: () {
-                        isConfigCompleted
-                            ? Navigator.pushNamed(context, '/order')
-                            : ScaffoldMessenger.of(context)
-                                .showSnackBar(createConfigSnackBar(navigate));
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(30)),
-                        ),
-                        child: const Text(
-                          "주문하기",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 100, color: Colors.white),
+    return Consumer<ConfigProvider>(
+      builder: (context, value, child) {
+        final isConfigCompleted = value.isConfigComplete;
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          body: Builder(
+            builder: (context) => GestureDetector(
+              onTap: () {
+                // there is button in child, but for better experience, any part touch will work like button
+                isConfigCompleted
+                    ? Navigator.pushNamed(context, '/order')
+                    : ScaffoldMessenger.of(context)
+                        .showSnackBar(createConfigSnackBar(navigate));
+              },
+              child: Container(
+                constraints: const BoxConstraints.expand(),
+                color: const Color.fromARGB(0, 0, 0, 0),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Center(
+                        child: TextButton(
+                          onPressed: () {
+                            isConfigCompleted
+                                ? Navigator.pushNamed(context, '/order')
+                                : ScaffoldMessenger.of(context).showSnackBar(
+                                    createConfigSnackBar(navigate));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(30)),
+                            ),
+                            child: const Text(
+                              "주문하기",
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(fontSize: 100, color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 30,
-                  right: 30,
-                  child: Row(
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          isConfigCompleted
-                              ? Navigator.pushNamed(context, '/blindhelp')
-                              : null;
-                        },
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
-                            border: Border.all(color: Colors.white70, width: 4),
+                    Positioned(
+                      bottom: 30,
+                      right: 30,
+                      child: Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              isConfigCompleted
+                                  ? Navigator.pushNamed(context, '/blindhelp')
+                                  : null;
+                            },
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                                border:
+                                    Border.all(color: Colors.white70, width: 4),
+                              ),
+                              child: const Icon(
+                                Icons.blind_rounded,
+                                color: Colors.white70,
+                                size: 50,
+                              ),
+                            ),
                           ),
-                          child: const Icon(
-                            Icons.blind_rounded,
-                            color: Colors.white70,
-                            size: 50,
+                          const SizedBox(width: 30),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/settings');
+                            },
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                                border:
+                                    Border.all(color: Colors.white70, width: 4),
+                              ),
+                              child: const Icon(
+                                Icons.settings,
+                                color: Colors.white70,
+                                size: 50,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                      const SizedBox(width: 30),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/settings');
-                        },
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
-                            border: Border.all(color: Colors.white70, width: 4),
-                          ),
-                          child: const Icon(
-                            Icons.settings,
-                            color: Colors.white70,
-                            size: 50,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
