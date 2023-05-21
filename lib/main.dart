@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
     //     SystemUiOverlay.bottom,
     //   ],
     // );
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     // HeadsetEvent headsetPlugin = HeadsetEvent();
     // headsetPlugin.requestPermission();
     // headsetPlugin.getCurrentState.then((value) => print(value));
