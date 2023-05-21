@@ -149,4 +149,4 @@ Not fully-implemented
 ## configuration
 
 # Special Thanks
-@4ch1o3 - Drawing sketches that describes specific situation for better explanation
+[@4ch1o3](https://github.com/4ch1o3) - Drawing sketches that describes specific situation for better explanation
