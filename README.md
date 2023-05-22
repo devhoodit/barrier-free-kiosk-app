@@ -98,7 +98,8 @@ Our goal is decreasing accessibility for youngers, increasing for elders
 Providing recommendation system is annoying for youngers but providing better experience for elders  
 This will lead to situtation youngers use default (no recommendation system kiosk), elders use barrier free kiosk (recommendation system kiosk)  
 This mean mainly customer is focused on our targest not for normal people (not our target)  
-This recommendation system will be implemented with Natural Language Processing  
+This recommendation system will be implemented with Natural Language Processing 
+*UI also has this concept   
 
 ## Freedom
 Common kiosk is fixed in position  
