@@ -13,7 +13,7 @@ Like code, UI etc might be unstable, not fully-implemented
 # How to install & use
 
 ## Install
-[Link]() - not available now  
+[Link](https://github.com/devhoodit/barrier-free-kiosk-app/releases/tag/0.0.2-beta) - 0.0.2-beta
 ## Configuration
 Ref file [example_config.json](./example_config.json)  
 <details>
@@ -149,6 +149,9 @@ Also, tablet basically provide some hardware like camera
 
 # Prototype Limitation
 Not fully-implemented  
+
+# Additional UI guideline
+- Focus on digital device, not kiosk: not need to retricted by kiosk UI guideline like fontsize, fontsize is consider in tablet UI guideline
 
 # How it works
 ## configuration
