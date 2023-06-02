@@ -1,6 +1,10 @@
 # Barrier Free Kiosk
 Human-Computer Interaction (HCI) team project  
 
+## Related Works
+- Easy to configuration app - [Link](https://github.com/devhoodit/barrier-free-kiosk-menu-app)
+- Recommandation system with natural language process - [Link](https://github.com/devhoodit/barrier-free-kiosk-configure)
+
 # Motivation
 Kiosk is rapidly increasing nowadays, many people use it  
 But there are many blind spots, hard to using for barrier people  
@@ -51,6 +55,8 @@ Ref file [example_config.json](./example_config.json)
 }
 ```
 </details>
+
+or using easy configuration [app](https://github.com/devhoodit/barrier-free-kiosk-menu-app)
 
 ## Start Application
 Install application  
