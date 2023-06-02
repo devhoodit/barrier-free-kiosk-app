@@ -93,7 +93,7 @@ So, provide consistent UI form
 This UI form is based on [Material Design Guide](https://m3.material.io/), since we experience a lot of UI design based on material design guide that is friendly  
 
 ## Recommendation System
-See reference, older people tend to prefer the recommendation system, vice versa  
+See reference, older people tend to prefer the recommendation system  
 Our goal is decreasing accessibility for youngers, increasing for elders  
 Providing recommendation system is annoying for youngers but providing better experience for elders  
 This will lead to situtation youngers use default (no recommendation system kiosk), elders use barrier free kiosk (recommendation system kiosk)  
@@ -153,7 +153,8 @@ Not fully-implemented
 # Additional UI guideline
 - Focus on digital device, not kiosk: not need to retricted by kiosk UI guideline like fontsize, fontsize is consider in tablet UI guideline  
 - Consideration for OCR, in blind UI make 6 division screen with complementary color, provide simple and important text
-- Simple is better, consider trade-off: addtional hardware is good (like braille device), but too many complex hardware can harm unity 
+- Simple is better, consider trade-off: addtional hardware is good (like braille device), but too many complex hardware can harm unity  
+- Keep coding state simple as possible: don't manage state complex
 
 # How it works
 ## configuration
