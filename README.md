@@ -151,7 +151,9 @@ Also, tablet basically provide some hardware like camera
 Not fully-implemented  
 
 # Additional UI guideline
-- Focus on digital device, not kiosk: not need to retricted by kiosk UI guideline like fontsize, fontsize is consider in tablet UI guideline
+- Focus on digital device, not kiosk: not need to retricted by kiosk UI guideline like fontsize, fontsize is consider in tablet UI guideline  
+- Consideration for OCR, in blind UI make 6 division screen with complementary color, provide simple and important text
+- Simple is better, consider trade-off: addtional hardware is good (like braille device), but too many complex hardware can harm unity 
 
 # How it works
 ## configuration
