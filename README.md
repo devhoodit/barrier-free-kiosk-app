@@ -91,6 +91,7 @@ We propose several concepts
 - [Cost](#cost)
 - [Compatibility](#compatibility) 
 - [Sccability](#scalabilty)
+- [Keep it Simple](#keep-it-simple)
 
 
 ## Consistency
@@ -152,6 +153,13 @@ In some specific kiosk, they need some special device for processing (like finge
 Tablet PC is scalable with C-type port or networking  
 If need hardware device, connect C-type port to use (networking too)  
 Also, tablet basically provide some hardware like camera  
+
+## Keep it simple
+Don't make complex function into basic function  
+Complex function is hard to maintenance and user also be confused when using  
+Provide very basic and simple function  
+This need to be cover up as many situation as possible (this is why we don't put AI)  
+Produce the best results even in the worst case scenario  
 
 # Prototype Limitation
 Not fully-implemented  
