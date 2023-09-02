@@ -158,7 +158,7 @@ Also, tablet basically provide some hardware like camera
 Don't make complex function into basic function  
 Complex function is hard to maintenance and user also be confused when using  
 Provide very basic and simple function  
-This need to be cover up as many situation as possible (this is why we don't put AI)  
+This need to be cover up as many situation as possible (this is why we don't put AI and additional hardwares)  
 Produce the best results even in the worst case scenario  
 
 # Prototype Limitation
